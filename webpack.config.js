@@ -1,24 +1,22 @@
-const path = require('path');
-const PATH = 'dist';
-const DEBUG = true;
-module.exports = {
-    entry: './src/index.js',
+var path = require('path');
+
+var SERVER_BUILD_DIR = path.resolve(__dirname, 'dist');
+
+const config = {
+    target: 'node',
+    entry: path.resolve(__dirname, 'example.js'),
     output: {
-        path: path.resolve(__dirname, PATH),
-        filename: 'bundle.js',
+        path: SERVER_BUILD_DIR,
+        filename: 'index.js'
     },
-    cache: DEBUG,
-    debug: DEBUG,
-    devtool: DEBUG ? 'eval-source-map' : false,
     module: {
         loaders: [
-            { test: /\.jsx?$/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'react'],
-                },
-                plugins: ['transform-runtime'],
-            },
-        ],
+            {
+                test: /\.js$/,
+                loader: 'babel-loader'
+            }
+        ]
     },
+    watch: true,
 };
+module.exports = config;
